@@ -1,11 +1,14 @@
 [project]
 name = "py-ico"
-version = "0.1.0"
+version = "0.2.0"
 description = "A small python app to generate .ico files from image input."
 readme = "README.md"
 requires-python = ">=3.11"
 license = { text = "MIT" }
-dependencies = []
+dependencies = [
+    "pillow>=13.0.0",
+    "pyside6>=6.12.0",
+]
 
 [project.scripts]
 py-ico = "src.main:main"
