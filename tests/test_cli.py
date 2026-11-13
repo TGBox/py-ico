@@ -65,4 +65,3 @@ def test_cli_invalid_hex_color_returns_error(tmp_path: Path, capsys) -> None:
     captured = capsys.readouterr()
     assert code == 1
     assert "Fehler" in captured.err
-

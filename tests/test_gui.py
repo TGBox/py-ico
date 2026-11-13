@@ -1,29 +1,32 @@
 from __future__ import annotations
 
 import os
-
-os.environ.setdefault("QT_QPA_PLATFORM", "offscreen")
-
 from pathlib import Path
+from typing import TYPE_CHECKING
 
 import pytest
 from PIL import Image, ImageDraw
-from PySide6.QtWidgets import QApplication
 
 from src.core.processor import PRESET_FAVICON
-from src.gui.main_window import MainWindow
-from src.gui.widgets import pil_to_qimage, qimage_to_pil
+
+os.environ.setdefault("QT_QPA_PLATFORM", "offscreen")
+QtWidgets = pytest.importorskip("PySide6.QtWidgets", exc_type=ImportError)
+
+if TYPE_CHECKING:
+    from PySide6.QtWidgets import QApplication
 
 
 @pytest.fixture(scope="module")
 def qt_app() -> QApplication:
-    existing = QApplication.instance()
-    if isinstance(existing, QApplication):
+    existing = QtWidgets.QApplication.instance()
+    if isinstance(existing, QtWidgets.QApplication):
         return existing
-    return QApplication([])
+    return QtWidgets.QApplication([])
 
 
 def test_pil_qimage_roundtrip() -> None:
+    from src.gui.widgets import pil_to_qimage, qimage_to_pil
+
     src = Image.new("RGBA", (32, 24), (12, 128, 250, 200))
     qimg = pil_to_qimage(src)
     restored = qimage_to_pil(qimg)
@@ -32,6 +35,8 @@ def test_pil_qimage_roundtrip() -> None:
 
 
 def test_main_window_load_configure_and_export(qt_app: QApplication, tmp_path: Path) -> None:
+    from src.gui.main_window import MainWindow
+
     window = MainWindow()
     try:
         sample = Image.new("RGBA", (160, 160), (255, 255, 255, 255))
@@ -64,4 +69,3 @@ def test_main_window_load_configure_and_export(qt_app: QApplication, tmp_path: P
             assert sorted(ico.info.get("sizes", set())) == [(s, s) for s in PRESET_FAVICON]
     finally:
         window.close()
-

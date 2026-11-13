@@ -82,4 +82,3 @@ def run_gui(argv: Sequence[str] | None = None) -> int:
     if owns_app:
         return app.exec()
     return 0
-

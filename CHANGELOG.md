@@ -1,8 +1,12 @@
 # Changelog
 
+## SemVer v0.2.1
+
+- 2026-11-13 (e376251): fix: fix github workflow failing on lint check
+
 ## SemVer v0.2.0
 
-- 2026-11-13 (be69c75): feat: create first draft
+- 2026-11-13 (2427ae3): feat: create first draft
 
 ## SemVer v0.1.0
 

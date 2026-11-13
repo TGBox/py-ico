@@ -149,4 +149,3 @@ def test_process_master_image_and_export_ico(tmp_path: Path) -> None:
     with Image.open(output_ico) as ico:
         embedded_sizes = sorted(ico.info.get("sizes", set()))
         assert embedded_sizes == [(s, s) for s in PRESET_WINDOWS]
-

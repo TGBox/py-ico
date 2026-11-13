@@ -41,4 +41,3 @@ __all__ = [
     "save_ico_frames",
     "trim_transparent",
 ]
-
