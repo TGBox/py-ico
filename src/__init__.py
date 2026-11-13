@@ -1,0 +1,1 @@
+"""py-ico package."""
